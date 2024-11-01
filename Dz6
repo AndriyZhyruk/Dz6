@@ -1,0 +1,73 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int[,] matrix = new int[5, 5];
+        Random random = new Random();
+
+        Action<int[,]> fillRandom = arr =>
+        {
+            for (int i = 0; i < arr.GetLength(0); i++)
+            {
+                for (int j = 0; j < arr.GetLength(1); j++)
+                {
+                    arr[i, j] = random.Next(1, 100);
+                }
+            }
+        };
+
+        Action<int[,]> replaceLessThan30 = arr =>
+        {
+            for (int i = 0; i < arr.GetLength(0); i++)
+            {
+                for (int j = 0; j < arr.GetLength(1); j++)
+                {
+                    if (arr[i, j] < 30)
+                    {
+                        arr[i, j] = random.Next(31, 100);
+                    }
+                }
+            }
+        };
+
+        Action<int[,]> replaceEvenWithOdd = arr =>
+        {
+            for (int i = 0; i < arr.GetLength(0); i++)
+            {
+                for (int j = 0; j < arr.GetLength(1); j++)
+                {
+                    if (arr[i, j] % 2 == 0)
+                    {
+                        arr[i, j] += 1;
+                    }
+                }
+            }
+        };
+
+        fillRandom(matrix);
+        Console.WriteLine("Matrix after filling with random numbers:");
+        PrintMatrix(matrix);
+
+        replaceLessThan30(matrix);
+        Console.WriteLine("\nMatrix after replacing numbers less than 30 with numbers greater than 30:");
+        PrintMatrix(matrix);
+
+        replaceEvenWithOdd(matrix);
+        Console.WriteLine("\nMatrix after replacing even numbers with odd numbers:");
+        PrintMatrix(matrix);
+    }
+
+    static void PrintMatrix(int[,] matrix)
+    {
+        for (int i = 0; i < matrix.GetLength(0); i++)
+        {
+            for (int j = 0; j < matrix.GetLength(1); j++)
+            {
+                Console.Write(matrix[i, j] + "\t");
+            }
+            Console.WriteLine();
+        }
+    }
+}
